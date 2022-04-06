@@ -19,10 +19,21 @@ class CallApiService
         // Uses the methods request with verb GET to retrieve the data from url below 
         $response = $this->client->request(
             'GET',
-            'https://coronavirusapifr.herokuapp.com/data/live/france'
+            'https://coronavirusapifr.herokuapp.com/data/live/france',            
         );
 
         return $response->toArray();
     }
+    
+    public function getFranceDataByDepartment(): array {
+
+        $response = $this->client->request(
+            'GET',
+            'https://coronavirusapifr.herokuapp.com/data/departement/yvelines',            
+        );
+
+        return $response->toArray();
+    }
+
 
 }

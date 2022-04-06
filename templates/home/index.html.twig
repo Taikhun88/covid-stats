@@ -1,24 +1,98 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Les chiffres du COVID-19 en France
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+	<div class="album py-5" id="france">
+		<div class="container">
+            <h1 class="mb-5">Les chiffres du COVID-19 en France</h1>
 
-<div class="example-wrapper">
-    <h1>France Data</h1>
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
-    {% for franceData in franceDatas %}
-        {{ franceData }}
-    {% endfor %}
+				<div class="col">
+					<div class="card shadow-sm h-100">
+						<div class="card-body">
+							<h5 class="card-title">Nombre d’hospitalisations</h5>
+							<p class="card-text">Nombre de personnes actuellement hospitalisée</p>
+						</div>
+                        <h3 class="card-footer bg-warning text-dark mx-2 rounded-pill">{{ data.0.0.hosp }}</h3>
+					</div>
+				</div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/symfony/covid-stats/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/symfony/covid-stats/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
-</div>
+                <div class="col">
+					<div class="card shadow-sm">
+						<div class="card-body">
+							<h5 class="card-title">Nombre de Réa</h5>
+							<p class="card-text">Nombre de personnes actuellement en réanimation</p>
+						</div>
+                        <h3 class="card-footer bg-warning text-dark mx-2 rounded-pill">{{ data.0.0.rea }}</h3>
+					</div>
+				</div>
+
+                <div class="col">
+					<div class="card shadow-sm">
+						<div class="card-body">
+							<h5 class="card-title">Nombre total de décès 😥</h5>
+							<p class="card-text">Nombre de personnes décédés depuis le début</p>
+						</div>
+                        <h3 class="card-footer bg-dark text-light mx-2 rounded-pill">{{ data.0.0.dchosp }}</h3>
+					</div>
+				</div>
+
+                <div class="col">
+					<div class="card shadow-sm">
+						<div class="card-body">
+							<h5 class="card-title">Nombre cumulé de retour à domicile</h5>
+							<p class="card-text">Nouveaux cumulé de patients de retour à domicile après amélioration de santé</p>
+						</div>
+                        <h3 class="card-footer bg-success text-dark mx-2 rounded-pill">{{ data.0.0.rad }}</h3>
+					</div>
+				</div>
+
+                <div class="col">
+					<div class="card shadow-sm">
+						<div class="card-body">
+							<h5 class="card-title">Nombre de cas confirmés</h5>
+							<p class="card-text">Nombre de cas confirmés après 24h passés suite au dépistage/p>
+						</div>
+                        <h3 class="card-footer bg-info text-dark mx-2 rounded-pill">{{ data.0.0.conf_j1}}</h3>
+					</div>
+				</div>
+
+                <div class="col">
+					<div class="card shadow-sm">
+						<div class="card-body">
+							<h5 class="card-title">Source des données</h5>
+							<p class="card-text">Source des données :<br>Source des données</p>
+						</div>
+                        <h3 class="card-footer bg-secondary text-grey mx-2 rounded-pill">{{ data.0.0.date }}</h3>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<div class="album py-5" id="department">
+		<div class="container">
+            <h1 class="mb-5">Les chiffres du COVID-19 par département</h1>
+
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+				{% for department in departments %}
+					<div class="col">
+						<div class="card shadow-lg h-100 m-2">
+							<div class="card-body">
+								<h5 class="card-title">{{ department.dep }}</h5>
+								<p class="card-text">Date d'hospitalisation<span class="badge bg-secondary">{{ department.date }}</span></p>
+								<p class="card-text">Actuellement en réa<span class="badge bg-secondary">{{ department.rea }}</span></p>
+								{# <a href="{{ path('app_department', {'department': department.lib_dep }) }}" class="btn btn-secondary" role="button" aria-pressed="true">Plus de chiffres</a> #}
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+	
 {% endblock %}
